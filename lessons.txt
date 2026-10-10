@@ -50,3 +50,11 @@ title: Representing Inequalities on number line
 summary: We looked at Natural, Integers and Real numbers and representing them on the number line.
 homework: Complete the worksheet handed out in class on inequalities on the number line. | https://drive.google.com/file/d/1Haumay3G5ETPMJPT86YMGVhBrUD81ZeP/view?usp=share_link
 photos: 2026-09-21-1.jpg, 2026-09-21-2.jpg, 2026-09-21-3.jpg
+
+date: 2026-09-25
+title: Algebraic long division
+summary: We looked at performing long division on polynomials to the power of 2.
+homework: Complete the algebraic long division questions started in class upto question 12. | https://drive.google.com/file/d/1vTdYvlmYgyOkq_RWpDksF8PCYJm0HW9b/view?usp=share_link
+photos: 2026-09-25-1.jpg, 2026-09-25-2.jpg
+solutions: https://drive.google.com/file/d/1X06evhlHG4e6_wR-0hYrKx6XmPsP7Tn6/view?usp=share_link
+video: https://www.youtube.com/watch?v=u6KX9WrD7UY
