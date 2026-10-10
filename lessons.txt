@@ -95,3 +95,10 @@ date: 2026-09-24
 title: Ratio and proportion
 homework: Exercise 5B, questions 1 to 9 | https://example.com/homework
 photos: sample-board-1.jpg
+
+date: 2026-10-09
+title: Factorisation (HCF)
+summary: Today we looked at factorisation using highest common Factors
+homework: Page 153, questions 1 2 and 3. | https://drive.google.com/file/d/1juvxKEU7aJ8r3sRQGUq5mO5h0eFXZFOd/view?usp=share_link
+photos: 2026-10-09-1.jpg, 2026-10-09-2.jpg, 2026-10-09-3.jpg
+video: https://www.youtube.com/watch?v=vViglKOwRnk&t=4s
