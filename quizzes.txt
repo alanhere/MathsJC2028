@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------
+# HOW TO ADD A QUIZ
+# Copy a whole entry from below, paste it anywhere in this file, then change the words.
+# Quizzes are grouped by topic. Use exactly the same topic name each time.
+#
+# date: 2026-10-08
+# title: Forces quiz
+# topic: Forces
+# about: Ten questions on Newton's laws.
+# link: Start quiz | https://forms.gle/XXXX
+# link: Answers | forces-quiz-answers.pdf
+#
+# date sets the order within a topic. It is not shown.
+# link can be repeated for more buttons. Write: button label | link
+# A link can be a Google Forms, Kahoot or Quizizz address, a Drive link,
+# or a PDF file name from the quizzes folder on GitHub.
+# ---------------------------------------------------------------
+
+date: 2026-09-20
+title: Algebra check-in quiz
+topic: Algebra
+about: Ten questions on expanding and factorising.
+link: Start quiz | https://example.com/algebra-quiz
+
+date: 2026-10-04
+title: Indices and surds quiz
+topic: Number
+about: Eight quick questions on the laws of indices.
+link: Start quiz | https://example.com/indices-quiz
+link: Answers | indices-quiz-answers.pdf
