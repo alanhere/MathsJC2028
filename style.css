@@ -102,6 +102,11 @@ details[open] .chev { transform: rotate(225deg) translate(-2px, -2px); }
   border-radius: 50%; padding: 0 0.6rem; transform: rotate(-4deg); flex: none;
 }
 
+.chip {
+  display: table; margin-top: 0.3rem; font-size: 0.78rem; font-weight: 400; line-height: 1.5; color: var(--ink); background: var(--tint);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.6rem;
+}
+
 .body { padding: 0 1rem 1.25rem; }
 .block { padding-top: 1.1rem; margin-top: 1.1rem; border-top: 2px dashed var(--rule); }
 .block:first-child { border-top: 0; margin-top: 0; padding-top: 0.25rem; }
@@ -218,3 +223,12 @@ dialog .btn { background: var(--paper); }
 .actions + .photos { margin-top: 0.9rem; }
 
 .videoitem + .videoitem { margin-top: 22px; }
+
+/* Phones: date, "new" and the arrow on the first line, title and topic tag underneath */
+@media (max-width: 520px) {
+  summary { flex-wrap: wrap; row-gap: 0.25rem; }
+  .date { order: 1; }
+  .new { order: 2; }
+  .chev { order: 3; margin-left: auto; }
+  .topic { order: 4; flex: 1 1 100%; }
+}
