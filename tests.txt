@@ -5,15 +5,14 @@
 # Every entry starts with a date line, written year-month-day, like 2026-10-14.
 # The date is the day of the test. Newest tests show first.
 #
+# test and solutions are Google Drive share links. Paste the whole link.
+# Leave the solutions line out until you are ready for students to see the solutions.
+# The page then says "Solutions coming soon." Add the link later and the button appears.
+# You can name a button: test: Paper 1 | https://drive.google.com/...
+# ---------------------------------------------------------------
 date: 2026-10-09
 title: Algebra 1 test
 topic: Algebra                  
 test: Algebra 1 | https://drive.google.com/file/d/1bBBZNw-moJV6GKyL6OVfPminxtIPIQXI/view?usp=sharing
 solutions: https://drive.google.com/file/d/1SsasdhdotjtXASlmz_1HB6EVMn6Ksl-Y/view?usp=sharing
 about: Algebra 1 (equations, inequalities, word problems and long division)
-#
-# test and solutions are Google Drive share links. Paste the whole link.
-# Leave the solutions line out until you are ready for students to see the solutions.
-# The page then says "Solutions coming soon." Add the link later and the button appears.
-# You can name a button: test: Paper 1 | https://drive.google.com/...
-# ---------------------------------------------------------------
