@@ -1,7 +1,7 @@
 /* Site settings. Safe to edit: change the words between the quote marks. */
 window.SITE = {
-  title: "2nd Year HL MathsHL",
-  intro: "Board photos, homework, solutions, tests and quizzes.",
+  title: "2nd Year HL Maths",
+  intro: "Board work, homework, solutions, tests and quizzes.",
   theme: "blue",   /* colour of this class: blue, green, crimson, purple, teal or orange */
   ink: "#1D3A9C",   /* the main blue. Try another colour code if you want to change it */
   tabs: [
