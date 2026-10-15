@@ -74,3 +74,12 @@ topic: Exam Prep
 summary: Went through the structure of the JC maths exam Questions were modelled and answered.
 homework: Prepare for the Probability test next Monday
 photos: 2026-09-17-1.jpg, 2026-09-17-2.jpg, 2026-09-17-3.jpg, 2026-09-17-4.jpg
+
+date: 2026-10-15
+title: Difference of two Squares
+topic: algebra factors
+summary: Today we looked at the method of factorising using the difference of two squares.
+homework: Page 153, Q4 to 6, Page 154, Q7 to 11, Page 155 Q4 to Q6.
+photos: 2026-10-15-1.jpg, 2026-10-15-2.jpg, 2026-10-15-3.jpg, 2026-10-15-4.jpg
+solutions: https://drive.google.com/file/d/1_PbIRo1BZQi2reYSHbZJaK8r2Z8nVdcf/view?usp=share_link
+video: difference of two squares | https://www.youtube.com/watch?v=S3JXkf5X97Y
