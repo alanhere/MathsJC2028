@@ -1,4 +1,4 @@
-5th Year Maths - website guide
+2nd Year HL Maths - website guide
 ==============================
 
 This is a simple website you edit by changing plain text files. There is no code to write.
@@ -7,11 +7,10 @@ WHAT IS IN THIS FOLDER
 index.html, style.css, app.js   The website itself. Please leave these alone.
 config.js                       The site title and main colour. Safe to edit.
 lessons.txt                     Your lessons. This is the file you edit every day.
-notes.txt                       Your guided notes, grouped by topic.
-quizzes.txt                     Quizzes, grouped by topic (Quizzes tab).
+tests.txt                       Your tests (Tests tab).
+sites.txt, pastquestions.txt, hints.txt   Your Revision tab: useful sites, past questions and study hints.
 photos/                         Your board photos go in this folder.
-notes/                          Your guided notes PDFs go in this folder.
-quizzes/                        Quiz PDFs go in this folder (optional).
+notes/                          Guided notes PDFs that you link from a lesson go in this folder.
 README.txt                      This guide.
 
 PART 1 - Put it online (once, about 20 minutes)
@@ -112,3 +111,11 @@ Open config.js and change the theme line, for example:   theme: "green",
 Choices: blue, green, crimson, purple, teal, orange.
 The graph paper, headings, dates, buttons and the stripe across the top all change. Dark mode matches too.
 To make a new class site, copy a whole site folder, make a new GitHub repository for it, change the title, intro and theme in config.js, and empty lessons.txt.
+
+
+REVISION TAB (sites.txt, pastquestions.txt, hints.txt)
+The Revision tab has three sections. Each has its own text file, and each works the same way as lessons.txt: copy an entry, paste it underneath and change the words.
+sites.txt           Useful websites. Lines: date, title, topic (the heading), about, link: Visit site | web address
+pastquestions.txt   Past questions. Lines: date, title, topic, about, link: Questions | Drive link, link: Solutions | Drive link, video
+hints.txt           Study hints. Lines: date, title, topic (the heading), about, explain (repeat for more paragraphs), example
+date only sets the order within a topic. It is not shown.

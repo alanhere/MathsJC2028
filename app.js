@@ -441,7 +441,7 @@
         groups[t].forEach(function (it) {
           var body = "";
           if (first(it, "about")) body += '<div class="block"><p>' + esc(first(it, "about")) + "</p></div>";
-          if (all(it, "explain").length) body += blk("The idea", paras(all(it, "explain")));
+          if (all(it, "explain").length) body += blk(tab.ideaHeading || "The idea", paras(all(it, "explain")));
           if (all(it, "example").length) body += blk("Worked example", paras(all(it, "example")));
           if (first(it, "video")) body += blk("Watch", videoHtml(all(it, "video")));
           var links = all(it, "link");
