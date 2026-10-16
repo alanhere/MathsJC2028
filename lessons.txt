@@ -83,3 +83,11 @@ homework: Page 153, Q4 to 6, Page 154, Q7 to 11, Page 155 Q4 to Q6.
 photos: 2026-10-15-1.jpg, 2026-10-15-2.jpg, 2026-10-15-3.jpg, 2026-10-15-4.jpg
 solutions: https://drive.google.com/file/d/1_PbIRo1BZQi2reYSHbZJaK8r2Z8nVdcf/view?usp=share_link
 video: difference of two squares | https://www.youtube.com/watch?v=S3JXkf5X97Y
+
+date: 2026-10-16
+title: Factoring a Quadratic
+topic: algebra factors
+summary: We factored a quadratic of the form ax^2 + bx +c, where a=1 and b could be positive or negative ( x^2+5x+6 and x^2 -11x + 28) We filled in the notes with the two examples and did sample questions.
+homework: Page 155, questions 3 4 and 5. | https://drive.google.com/file/d/1KSyu08GmvJQPZia47FkVA-tbZRXpLDYd/view?usp=share_link
+photos: 2026-10-16-1.jpg, 2026-10-16-2.jpg
+solutions: https://drive.google.com/file/d/1F044w27sllLRz0sJ4d1o2oB4eOhfcnPB/view?usp=share_link
