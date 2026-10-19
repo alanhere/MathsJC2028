@@ -94,3 +94,11 @@ solutions: https://drive.google.com/file/d/1F044w27sllLRz0sJ4d1o2oB4eOhfcnPB/vie
 video: quadratic positive with a=1 | https://youtu.be/lPcCinkrRFA
 video: quadratic with negative b | https://youtu.be/Fj5grURwJW8
 
+
+date: 2026-10-19
+title: Factoring Trinomials with double negatives
+topic: algebra factors
+summary: We factored trinomials where they had the form of x^2 -x-12.
+homework: Page 159 questions 8 and 9. Complete page 10 of questions in the notes.
+photos: 2026-10-19-1.jpg
+solutions: https://drive.google.com/file/d/1jYjpHMgrWhZ4mE94zI7n-WhLgymB_zXJ/view?usp=share_link
