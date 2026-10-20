@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teacher Lesson Editor | Physics Learning Hub</title><link rel="stylesheet" href="style.css">
+<style>
+.editor-wrap{max-width:1040px;margin:35px auto;padding:0 18px 70px}
+.editor-head{background:rgba(253,254,255,.97);border:2px solid #1d3a9c;border-left:5px solid #d3242b;color:#1b2236;padding:30px;border-radius:6px 14px 8px 12px}
+.editor-head h1{color:#1d3a9c;font-family:var(--hand);font-size:2.8rem;font-weight:400;margin:0 0 8px}.editor-head p{margin:0}
+.editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
+.editor-panel{background:white;border:2px solid #1d3a9c;border-radius:6px 14px 8px 12px;padding:22px}
+.editor-panel h2{margin-top:0;font-family:var(--hand);font-size:2rem;color:#1d3a9c;font-weight:400}
+.field{margin:14px 0}.field label{display:block;font-weight:750;margin-bottom:6px}
+.field input,.field textarea,.field select{display:block;width:100%;padding:11px;border:2px solid #b8cce0;border-radius:5px;font:inherit;background:white;color:#27213b}
+.field textarea{min-height:90px;resize:vertical}
+.field small{display:block;color:#5c566a;margin-top:5px}
+.editor-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.editor-actions button{padding:12px 15px;border:0;border-radius:10px;background:#1d3a9c;color:white;font:inherit;font-weight:700;cursor:pointer}
+.editor-actions button.secondary{background:white;color:#1d3a9c;border:2px solid #1d3a9c}
+.editor-actions button:disabled{opacity:.5;cursor:not-allowed}
+.preview{background:#f6f9fe;border-radius:5px;border-left:3px solid #d3242b;padding:16px;overflow-wrap:anywhere}
+.preview h3{margin:5px 0}.preview ul,.preview ol{padding-left:22px}
+.status{font-weight:650;min-height:25px}.notice-teacher{background:#fff3d8;border:1px solid #e9c77e;padding:15px;border-radius:12px;margin-top:20px}
+@media(max-width:750px){.editor-grid{grid-template-columns:1fr}}
+</style></head><body>
+<header class="topbar"><a class="brand" href="index.html#home"><span class="logo">⚛</span><span><strong>Physics Learning Hub</strong><small>Teacher lesson editor</small></span></a><nav aria-label="Editor navigation"><a href="index.html#log">← Student website</a></nav></header>
+<main class="editor-wrap">
+<section class="editor-head"><h1>✏️ Teacher Lesson Editor</h1><p>Fill in your lesson, attach resources and publish everything to GitHub in one click.</p></section>
+<div class="notice-teacher"><strong>Important:</strong> The editor is publicly viewable, but publishing requires your GitHub authorisation. For security, use a fine-grained token with <strong>Contents: Read and write</strong> permission for this repository only. Your token stays in browser memory and is never saved. For best security, open this editor locally on your own computer, not on a shared device. Do not enter student personal data.</div>
+<div class="editor-grid">
+<section class="editor-panel"><h2>Lesson details</h2>
+<form id="lesson-form">
+<div class="field"><label for="date">Lesson date *</label><input id="date" type="date" required></div>
+<div class="field"><label for="topic">Topic *</label><select id="topic" required></select><div id="new-topic-wrap" hidden style="margin-top:10px"><label for="new-topic">New topic name *</label><input id="new-topic" type="text" maxlength="80" placeholder="e.g. Optics"></div><small>Select an existing topic or choose “+ Add a new topic”.</small></div>
+<div class="field"><label for="title">Lesson title *</label><input id="title" required placeholder="e.g. Newton's Second Law"></div>
+<div class="field"><label for="intentions">Learning intentions *</label><textarea id="intentions" required placeholder="One intention per line"></textarea><small>Write each intention on a separate line.</small></div>
+<div class="field"><label for="summary">What was covered *</label><textarea id="summary" required placeholder="A short overview of the lesson"></textarea></div>
+<div class="field"><label for="activities">Activities and examples</label><textarea id="activities" placeholder="One activity per line"></textarea></div>
+<div class="field"><label for="homework">Homework *</label><textarea id="homework" required placeholder="e.g. Complete questions 1–6"></textarea></div>
+<div class="field"><label for="due">Homework due date</label><input id="due" type="date"><small>Leave blank if there is no fixed due date.</small></div>
+<div class="field"><label for="additional-instructions">Additional instructions (optional)</label><textarea id="additional-instructions" placeholder="e.g. If you missed the experiment, watch the demonstration video."></textarea><small>Only add this when students need guidance beyond the class log and linked resources.</small></div>
+<div class="field"><label for="resources">Existing resources</label><select id="resources" multiple size="5"></select><small>Optional. Hold Ctrl (Windows) or Command (Mac) to select several.</small></div>
+<section class="attachment-section" aria-label="Add resources"><h3>📎 Attach resources</h3><p>Attach new files, images or links. They will also appear in the Resource Library.</p>
+<div class="field"><label for="file-upload">1. Add files (PDF, PowerPoint, Word, spreadsheets)</label><input id="file-upload" type="file" multiple accept=".pdf,.ppt,.pptx,.doc,.docx,.xls,.xlsx,.csv,.txt,.odt,.ods,.odp"/><small>Keep files reasonably small (under 10 MB recommended). Files are uploaded automatically when you publish.</small></div>
+<div class="field"><label for="image-upload">2. Add images (JPG, PNG, WebP, GIF)</label><input id="image-upload" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif"/><small>Images are linked from the lesson and Resource Library.</small></div>
+<div class="field"><label for="link-title">3. Add a website or video link</label><input id="link-title" placeholder="Link title, e.g. PhET Forces simulation"/><input id="link-url" type="url" placeholder="https://..." style="margin-top:8px"/><button type="button" id="add-link" class="secondary" style="margin-top:8px">+ Add link</button></div>
+<div id="pending-attachments" class="preview" aria-live="polite">No new attachments yet.</div>
+</section><div class="editor-actions"><button type="submit">Generate lesson entry</button><button type="button" class="secondary" id="reset">Clear form</button></div>
+</form></section>
+<section class="editor-panel"><h2>Lesson preview</h2><div id="preview" class="preview" aria-live="polite">Complete the fields and select “Generate lesson entry” to preview.</div>
+<h2 style="margin-top:28px">Publish your update</h2>
+<p>When you are happy with the preview, connect to GitHub and select Publish. The lesson, links, files and images will be committed together.</p>
+<section class="notice-teacher" aria-label="GitHub publishing settings"><h3>🔐 GitHub publishing</h3>
+<div class="field"><label for="gh-owner">GitHub username or organisation</label><input id="gh-owner" autocomplete="off" placeholder="e.g. alanhere"></div>
+<div class="field"><label for="gh-repo">Repository name</label><input id="gh-repo" autocomplete="off" placeholder="e.g. physics-learning-hub"></div>
+<div class="field"><label for="gh-branch">Branch</label><input id="gh-branch" value="main" autocomplete="off"></div>
+<div class="field"><label for="gh-token">Fine-grained GitHub personal access token</label><input id="gh-token" type="password" autocomplete="off" placeholder="github_pat_..."><small>Grant access only to this repository, with Repository permissions → Contents: Read and write. Never put this token in a file or commit it. It is not stored by this editor.</small></div>
+<div class="editor-actions"><button type="button" id="publish" disabled>🚀 Publish lesson and attachments</button><button type="button" id="download" class="secondary" disabled>⬇ Download data.js (backup)</button><button type="button" id="copy" class="secondary" disabled>Copy lesson entry</button></div>
+<p id="status" class="status" role="status" aria-live="polite"></p><div id="upload-manifest" class="preview" hidden></div>
+<p><small>Publishing makes one GitHub commit containing the lesson and attachments. GitHub Pages then deploys the site (usually after a short delay). The editor fetches the latest lesson data directly from GitHub before every publication, merges your lesson safely, and checks for concurrent updates.</small></p></section>
+</section></div>
+<section class="editor-panel" style="margin-top:22px" aria-labelledby="manage-heading"><h2 id="manage-heading">Manage published lessons</h2><p>Load the latest lessons directly from GitHub. Select a lesson to edit its details or delete it from the Class Log. Deleting a lesson does not delete uploaded files.</p>
+<div class="editor-actions"><button type="button" id="manage-load">↻ Load published lessons</button></div>
+<div class="field"><label for="manage-filter">Find a lesson</label><input id="manage-filter" placeholder="Search title, date or topic"></div>
+<div id="manage-list" aria-live="polite">Select “Load published lessons” to begin.</div>
+<p id="manage-status" class="status" role="status" aria-live="polite"></p>
+</section>
+<section class="editor-panel" style="margin-top:22px" aria-labelledby="solutions-heading">
+<h2 id="solutions-heading">📝 Homework solutions</h2>
+<p>Release solutions for an existing lesson when students are ready. Choose a PDF to upload <strong>at release time</strong>, or paste a YouTube/website link. Nothing is uploaded or published while withheld.</p>
+<div class="field"><label for="sol-lesson">Lesson</label><select id="sol-lesson"><option value="">Load published lessons first…</option></select></div>
+<div class="field"><label for="sol-file">Solution PDF (optional)</label><input id="sol-file" type="file" accept=".pdf,application/pdf"></div>
+<div class="field"><label for="sol-url">Or solution video / website URL</label><input id="sol-url" type="url" placeholder="https://..."></div>
+<div class="field"><label for="sol-label">Link label</label><input id="sol-label" value="View homework solutions" maxlength="100"></div>
+<div class="editor-actions"><button id="sol-release" type="button">Release solutions</button><button id="sol-hide" type="button" class="secondary">Hide solutions</button></div>
+<p id="sol-status" class="status" role="status" aria-live="polite"></p>
+<p><small>Important: Hiding removes the link from the site, but does not remove an already uploaded public PDF from GitHub. Previously shared URLs can still work. Do not release confidential material to a public repository.</small></p>
+</section>
+<section class="editor-panel" style="margin-top:22px" aria-labelledby="standalone-heading">
+<h2 id="standalone-heading">Manage standalone resources</h2><p>Add a PDF, YouTube video, PhET simulation or other link without creating a lesson. Resources are published directly to GitHub.</p>
+<form id="standalone-form">
+<div class="editor-grid" style="margin-top:0">
+<div>
+<div class="field"><label for="sr-title">Resource title *</label><input id="sr-title" required maxlength="160" placeholder="e.g. Geometric Optics PhET"></div>
+<div class="field"><label for="sr-description">Description</label><textarea id="sr-description" placeholder="What will students learn or practise?"></textarea></div>
+<div class="field"><label for="sr-topic">Topic or skill *</label><input id="sr-topic" required list="sr-topic-list" placeholder="e.g. Waves and Light"><datalist id="sr-topic-list"></datalist></div>
+<div class="field"><label for="sr-placement">Display in *</label><select id="sr-placement"><option value="resources">Resources</option><option value="skills">Skills Centre</option><option value="both">Both</option></select></div>
+</div><div>
+<div class="field"><label for="sr-type">Resource type *</label><select id="sr-type"><option value="File">PDF / uploaded file</option><option value="Video">YouTube / video</option><option value="Simulation">PhET / simulation</option><option value="Link">Other website</option></select></div>
+<div class="field" id="sr-file-wrap"><label for="sr-file">Select PDF or file</label><input type="file" id="sr-file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xlsx,.xls,.csv,.txt,.png,.jpg,.jpeg,.webp"><small>20 MB maximum. Uploads go to uploads/.</small></div>
+<div class="field" id="sr-url-wrap" hidden><label for="sr-url">Full website URL</label><input type="url" id="sr-url" placeholder="https://..."></div>
+<div class="editor-actions"><button type="submit" id="sr-save">Publish resource</button><button type="button" id="sr-clear" class="secondary">Clear / cancel edit</button></div>
+<p id="sr-status" class="status" role="status" aria-live="polite"></p>
+</div></div></form>
+<h3>Published standalone resources</h3><p>Use your GitHub settings and token in the publishing panel above. Select Load to see the latest resources and edit or delete them.</p>
+<div class="editor-actions"><button type="button" id="sr-load">↻ Load published resources</button></div>
+<div class="field"><label for="sr-filter">Find a resource</label><input id="sr-filter" placeholder="Search title, topic or type"></div>
+<div id="sr-list" aria-live="polite">Select “Load published resources” to begin.</div>
+</section>
+</main>
+<script src="data.js"></script><script>
+(()=>{
+'use strict';
+const data=window.HUB_DATA;
+let editingOriginal=null;
+let managedSnapshot=null;
+const $=id=>document.getElementById(id);
+const attachments=[];
+const MAX_BYTES=20*1024*1024;
+const safeName=name=>name.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9._-]/g,'-').replace(/-+/g,'-').replace(/^\.+/,'').slice(0,110);
+const renderAttachments=()=>{const host=$('pending-attachments');host.replaceChildren();if(!attachments.length){host.textContent='No new attachments yet.';return;}attachments.forEach((a,i)=>{const line=document.createElement('div');line.style.margin='8px 0';const text=document.createElement('span');text.textContent=(a.kind==='link'?'🔗 ':a.kind==='image'?'🖼️ ':'📄 ')+a.title+(a.kind==='link'?'':' — uploads/'+a.filename);const b=document.createElement('button');b.type='button';b.textContent='Remove';b.className='secondary';b.style.marginLeft='10px';b.addEventListener('click',()=>{attachments.splice(i,1);invalidate();renderAttachments()});line.append(text,b);host.append(line);});};
+const addFiles=(input,kind)=>{for(const file of input.files){if(file.size>MAX_BYTES){$('status').textContent=file.name+' is larger than 20 MB. Please use a hosted link instead.';continue;}const extension=file.name.split('.').pop().toLowerCase();const allowed=kind==='image'?['jpg','jpeg','png','webp','gif']:['pdf','ppt','pptx','doc','docx','xls','xlsx','csv','txt','odt','ods','odp'];if(!allowed.includes(extension)){$('status').textContent='Unsupported file type: '+file.name;continue;}const base=safeName(file.name);if(!base){continue;}const prefix='lesson-'+$('date').value+'-'+(slug($('title').value)||'resource')+'-';const filename=prefix+base;const existing=attachments.find(a=>a.filename===filename);if(existing){$('status').textContent='Already attached: '+file.name;continue;}attachments.push({kind,title:file.name,filename,file});}input.value='';invalidate();renderAttachments();};
+$('file-upload').addEventListener('change',e=>addFiles(e.target,'file'));
+$('image-upload').addEventListener('change',e=>addFiles(e.target,'image'));
+$('add-link').addEventListener('click',()=>{const title=$('link-title').value.trim(),url=$('link-url').value.trim();let parsed;try{parsed=new URL(url);}catch(e){}if(!title||!parsed||!['https:','http:'].includes(parsed.protocol)){$('status').textContent='Enter a link title and a valid http(s) URL.';return;}attachments.push({kind:'link',title,url:parsed.href});$('link-title').value='';$('link-url').value='';invalidate();renderAttachments();});
+const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','"':'&quot;',"'":'&#39;'}[c]));
+const lines=s=>s.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+const slug=s=>s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,45);
+$('topic').innerHTML='<option value="">Choose a topic</option>'+data.topics.map(t=>`<option value="${escape(t.name)}">${escape(t.name)}</option>`).join('')+'<option value="__new__">+ Add a new topic…</option>';
+$('topic').addEventListener('change',()=>{const isNew=$('topic').value==='__new__';$('new-topic-wrap').hidden=!isNew;$('new-topic').required=isNew;if(!isNew)$('new-topic').value='';});
+$('resources').innerHTML=data.resources.map(r=>`<option value="${escape(r.id)}">${escape(r.title)}</option>`).join('');
+$('date').value=new Date().toLocaleDateString('en-CA');
+let generated=null,updated=null;
+const invalidate=()=>{generated=null;updated=null;$('download').disabled=true;$('copy').disabled=true;$('publish').disabled=true;$('status').textContent='';};
+$('lesson-form').addEventListener('input',invalidate);
+$('lesson-form').addEventListener('change',invalidate);
+$('reset').addEventListener('click',()=>{editingOriginal=null;attachments.length=0;renderAttachments();HTMLFormElement.prototype.reset.call($('lesson-form'));$('date').value=new Date().toLocaleDateString('en-CA');$('new-topic-wrap').hidden=true;$('new-topic').required=false;invalidate();$('preview').textContent='Complete the fields and select “Generate lesson entry” to preview.';});
+$('lesson-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(!$('lesson-form').reportValidity())return;
+ const v=id=>$(id).value.trim();
+ const title=v('title'),date=v('date'),due=v('due');
+ if(due && due<date){$('status').textContent='The homework due date cannot be earlier than the lesson date.';return;}
+ const topicName=v('topic')==='__new__'?v('new-topic'):v('topic');
+ if(!topicName){$('status').textContent='Choose or enter a topic.';return;}
+ generated={id:'lesson-'+date+'-'+(slug(title)||'entry'),date,topic:topicName,title,summary:v('summary'),intentions:lines(v('intentions')),activities:lines(v('activities')),homework:v('homework'),due,additionalInstructions:v('additional-instructions'),resources:[...$('resources').selectedOptions].map(x=>x.value),example:false};
+ const replacement=data.lessons.some(l=>l.id===generated.id);
+ if(editingOriginal)generated.id=editingOriginal.id;
+ const newResources=attachments.map((a,i)=>({id:generated.id+'-resource-'+(i+1),title:a.title,topic:generated.topic,type:a.kind==='link'?(/youtu\.be|youtube\.com|vimeo\.com/i.test(a.url)?'Video':'Link'):a.kind==='image'?'Image':'File',description:'Attached to '+generated.title,url:a.kind==='link'?a.url:'uploads/'+a.filename}));
+ generated.resources.push(...newResources.map(r=>r.id));
+ updated={...data,topics:data.topics.some(t=>t.name.toLowerCase()===topicName.toLowerCase())?data.topics:[...data.topics,{name:topicName,icon:'◉',color:'sky',description:'Lessons and resources for '+topicName+'.',keyIdeas:[]}],lessons:[generated,...data.lessons.filter(l=>l.id!==generated.id)].sort((a,b)=>b.date.localeCompare(a.date)),resources:[...data.resources.filter(r=>!r.id.startsWith(generated.id+'-resource-')),...newResources]};
+ const manifest=$('upload-manifest');const files=attachments.filter(a=>a.file);manifest.hidden=!files.length;manifest.replaceChildren();if(files.length){const strong=document.createElement('strong');strong.textContent='Files to upload to GitHub → uploads/';manifest.append(strong);const list=document.createElement('ul');files.forEach(a=>{const li=document.createElement('li');li.textContent=a.filename;list.append(li)});manifest.append(list);const note=document.createElement('p');note.textContent='These files upload automatically with Publish. Rename and upload them manually only if using the Download backup method.';manifest.append(note);}
+ $('preview').innerHTML=`<small>${escape(date)} · ${escape(generated.topic)}</small><h3>${escape(title)}</h3><p>${escape(generated.summary)}</p><strong>Learning intentions</strong><ul>${generated.intentions.map(x=>`<li>${escape(x)}</li>`).join('')}</ul><strong>Homework</strong><p>${escape(generated.homework)}${due?' — Due '+escape(due):''}</p>${generated.additionalInstructions?`<strong>Additional instructions</strong><p>${escape(generated.additionalInstructions)}</p>`:""}`;
+ $('download').disabled=false;$('copy').disabled=false;$('publish').disabled=false;
+ $('status').textContent=replacement?'Ready to publish: a lesson with this ID will be replaced.':'Ready to publish: review the preview, then select Publish.';
+});
+const jsString=obj=>'// Physics Learning Hub lesson data. Generated by the Teacher Lesson Editor.\nwindow.HUB_DATA = '+JSON.stringify(obj,null,2)+';\n';
+$('download').addEventListener('click',()=>{
+ if(!updated)return;
+ const blob=new Blob([jsString(updated)],{type:'text/javascript;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='data.js';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ $('status').textContent='Downloaded data.js. Upload it and any listed files/images to GitHub to publish the lesson.';
+});
+// GitHub Git Data API: upload blobs and update the branch in one commit.
+// No token is persisted to localStorage, cookies, files, or the repository.
+// Read the repository's authoritative data.js, not a potentially stale GitHub Pages copy.
+const parseHubData=source=>{
+ const match=source.match(/window\.HUB_DATA\s*=\s*([\s\S]*?)\s*;\s*(?:\/\/[\s\S]*)?$/);
+ if(!match)throw new Error('Cannot recognise GitHub data.js format. No changes were made.');
+ let parsed;try{parsed=JSON.parse(match[1]);}catch{throw new Error('GitHub data.js is not valid JSON lesson data. No changes were made.');}
+ if(!parsed||!Array.isArray(parsed.lessons)||!Array.isArray(parsed.resources)||!Array.isArray(parsed.topics))throw new Error('GitHub data.js has an unexpected structure. No changes were made.');
+ return parsed;
+};
+const mergeLesson=latest=>{
+ const existing=latest.lessons.find(l=>l.id===generated.id);
+ if(editingOriginal){if(!existing||JSON.stringify(existing)!==JSON.stringify(editingOriginal))throw new Error('This lesson changed since it was loaded for editing. Reload it before saving.');}
+ // Never silently replace a lesson that was published from another session.
+ if(existing && !editingOriginal && !data.lessons.some(l=>l.id===generated.id))throw new Error('A lesson with this date and title already exists on GitHub. Check the Class Log before publishing again.');
+ if(existing && !editingOriginal && JSON.stringify(existing)!==JSON.stringify(data.lessons.find(l=>l.id===generated.id)))throw new Error('This lesson was changed on GitHub after the editor opened. Reload and review before replacing it.');
+ const newResources=attachments.map((a,i)=>({id:generated.id+'-resource-'+(i+1),title:a.title,topic:generated.topic,type:a.kind==='link'?(/youtu\.be|youtube\.com|vimeo\.com/i.test(a.url)?'Video':'Link'):a.kind==='image'?'Image':'File',description:'Attached to '+generated.title,url:a.kind==='link'?a.url:'uploads/'+a.filename}));
+ const topicName=generated.topic;
+ return {...latest,topics:latest.topics.some(t=>t.name.toLowerCase()===topicName.toLowerCase())?latest.topics:[...latest.topics,{name:topicName,icon:'◉',color:'sky',description:'Lessons and resources for '+topicName+'.',keyIdeas:[]}],lessons:[generated,...latest.lessons.filter(l=>l.id!==generated.id)].sort((a,b)=>b.date.localeCompare(a.date)),resources:[...latest.resources.filter(r=>!newResources.some(n=>n.id===r.id)),...newResources]};
+};
+const bytesBase64=bytes=>{let result='';for(let i=0;i<bytes.length;i+=0x8000){result+=String.fromCharCode(...bytes.subarray(i,i+0x8000));}return btoa(result);};
+async function publishLesson(){
+ if(!updated||!generated)return;
+ const owner=$('gh-owner').value.trim(),repo=$('gh-repo').value.trim(),branch=$('gh-branch').value.trim(),token=$('gh-token').value.trim();
+ if(!/^[\w-]+$/.test(owner)||!/^[\w.-]+$/.test(repo)||!branch||branch.includes('..')||branch.startsWith('/')||branch.endsWith('/')||!token){$('status').textContent='Enter a valid GitHub owner, repository, branch and access token.';return;}
+ const files=attachments.filter(a=>a.file);
+ const total=files.reduce((n,a)=>n+a.file.size,0);
+ if(total>40*1024*1024){$('status').textContent='Attachments exceed 40 MB combined. Please use external links for large files.';return;}
+ const btn=$('publish');btn.disabled=true;$('status').textContent='Connecting to GitHub…';
+ const api=async(path,method='GET',body)=>{
+  const res=await fetch('https://api.github.com'+path,{method,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+  if(!res.ok){let detail='';try{detail=(await res.json()).message||''}catch{}throw new Error('GitHub '+res.status+': '+detail);}return res.json();
+ };
+ try{
+  const base='/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo);
+  const refPath='/git/ref/heads/'+branch.split('/').map(encodeURIComponent).join('/');
+  const ref=await api(base+refPath);const originalSha=ref.object.sha;
+  // Read the latest data directly from GitHub and merge without dropping newer lessons.
+  const currentFile=await api(base+'/contents/data.js?ref='+encodeURIComponent(branch));
+  const rawData=await fetch('https://api.github.com'+base+'/contents/data.js?ref='+encodeURIComponent(branch),{headers:{'Accept':'application/vnd.github.raw+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'},cache:'no-store'});
+  if(!rawData.ok)throw new Error('Unable to read current data.js (GitHub '+rawData.status+').');
+  const latestData=parseHubData(await rawData.text());
+  const merged=mergeLesson(latestData);
+  const head=await api(base+'/git/commits/'+originalSha);
+  const entries=[];
+  for(let i=0;i<files.length;i++){
+   const a=files[i];$('status').textContent='Preparing attachment '+(i+1)+' of '+files.length+': '+a.title;
+   const bytes=new Uint8Array(await a.file.arrayBuffer());
+   const blob=await api(base+'/git/blobs','POST',{content:bytesBase64(bytes),encoding:'base64'});
+   entries.push({path:'uploads/'+a.filename,mode:'100644',type:'blob',sha:blob.sha});
+  }
+  $('status').textContent='Preparing lesson data…';
+  const lessonBlob=await api(base+'/git/blobs','POST',{content:jsString(merged),encoding:'utf-8'});
+  entries.push({path:'data.js',mode:'100644',type:'blob',sha:lessonBlob.sha});
+  const tree=await api(base+'/git/trees','POST',{base_tree:head.tree.sha,tree:entries});
+  const commit=await api(base+'/git/commits','POST',{message:'Publish physics lesson: '+generated.date+' — '+generated.title,tree:tree.sha,parents:[originalSha]});
+  $('status').textContent='Publishing lesson and attachments…';
+  await api(base+refPath.replace('/git/ref/','/git/refs/'),'PATCH',{sha:commit.sha,force:false});
+  $('status').textContent='✓ Lesson and '+files.length+' attachment(s) published. You can prepare the next lesson without refreshing.';
+  data.lessons=merged.lessons;data.topics=merged.topics;data.resources=merged.resources;
+  $('resources').innerHTML=data.resources.map(r=>`<option value="${escape(r.id)}">${escape(r.title)}</option>`).join('');
+  $('topic').innerHTML='<option value="">Choose a topic</option>'+data.topics.map(t=>`<option value="${escape(t.name)}">${escape(t.name)}</option>`).join('')+'<option value="__new__">+ Add a new topic…</option>';
+  HTMLFormElement.prototype.reset.call($('lesson-form'));$('date').value=new Date().toLocaleDateString('en-CA');$('new-topic-wrap').hidden=true;$('new-topic').required=false;attachments.length=0;renderAttachments();generated=null;updated=null;editingOriginal=null;
+  $('preview').textContent='Lesson published. Complete the fields to prepare your next lesson.'; managedSnapshot=null;$('manage-list').textContent='Select “Load published lessons” to refresh the list.';
+  $('upload-manifest').hidden=true;
+  btn.disabled=true;$('download').disabled=true;$('copy').disabled=true;
+  // Clear the credential immediately after successful publishing.
+  $('gh-token').value='';
+ }catch(err){$('status').textContent='Publish unsuccessful: '+err.message+' No new lesson was published. Check the repository and retry or download a backup.';btn.disabled=false;}
+}
+
+// Manage lessons: read the authoritative repository data and make conflict-safe commits.
+const managementCredentials=()=>{
+ const owner=$('gh-owner').value.trim(),repo=$('gh-repo').value.trim(),branch=$('gh-branch').value.trim(),token=$('gh-token').value.trim();
+ if(!/^[\w-]+$/.test(owner)||!/^[\w.-]+$/.test(repo)||!branch||!token)throw new Error('Enter GitHub owner, repository, branch and token in the publishing settings above.');
+ return {base:'/repos/'+encodeURIComponent(owner)+'/'+encodeURIComponent(repo),branch,token};
+};
+const manageApi=async (path,method='GET',body)=>{
+ const {token}=managementCredentials();
+ const response=await fetch('https://api.github.com'+path,{method,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
+ if(!response.ok){let message='';try{message=(await response.json()).message||''}catch{}throw new Error('GitHub '+response.status+': '+message)}
+ return response.json();
+};
+async function fetchManaged(){
+ const {base,branch,token}=managementCredentials();
+ const refPath='/git/ref/heads/'+branch.split('/').map(encodeURIComponent).join('/');
+ const ref=await manageApi(base+refPath);
+ const response=await fetch('https://api.github.com'+base+'/contents/data.js?ref='+encodeURIComponent(branch),{headers:{'Accept':'application/vnd.github.raw+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'},cache:'no-store'});
+ if(!response.ok)throw new Error('Cannot read GitHub data.js ('+response.status+').');
+ return {data:parseHubData(await response.text()),sha:ref.object.sha,base,refPath};
+}
+const managedItems=()=>{
+ const host=$('manage-list');host.replaceChildren();
+ if(!managedSnapshot){host.textContent='Select “Load published lessons” to begin.';return;}
+ const term=$('manage-filter').value.trim().toLowerCase();
+ const matches=[...managedSnapshot.data.lessons].sort((a,b)=>String(b.date).localeCompare(String(a.date))).filter(l=>[l.title,l.topic,l.date].join(' ').toLowerCase().includes(term));
+ if(!matches.length){host.textContent='No matching lessons.';return;}
+ for(const lesson of matches){
+  const line=document.createElement('div');line.style.cssText='border-bottom:1px solid #d6e1f1;padding:12px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap';
+  const detail=document.createElement('span');detail.style.flex='1 1 300px';
+  const name=document.createElement('strong');name.textContent=lesson.title||'(Untitled)';
+  const meta=document.createElement('small');meta.style.display='block';meta.textContent=(lesson.date||'No date')+' · '+(lesson.topic||'No topic');
+  detail.append(name,meta);
+  const edit=document.createElement('button');edit.type='button';edit.textContent='Edit';edit.className='secondary';
+  edit.addEventListener('click',()=>loadLessonForEdit(lesson));
+  const remove=document.createElement('button');remove.type='button';remove.textContent='Delete';remove.className='secondary';
+  remove.addEventListener('click',()=>deleteManagedLesson(lesson));
+  line.append(detail,edit,remove);host.append(line);
+ }
+};
+$('manage-filter').addEventListener('input',managedItems);
+$('manage-load').addEventListener('click',async()=>{
+ const btn=$('manage-load');btn.disabled=true;$('manage-status').textContent='Loading the latest published lessons…';
+ try{managedSnapshot=await fetchManaged();managedItems();$('manage-status').textContent=managedSnapshot.data.lessons.length+' published lessons loaded from GitHub.';}
+ catch(e){$('manage-status').textContent=e.message;}
+ finally{btn.disabled=false;}
+});
+function loadLessonForEdit(lesson){
+ editingOriginal=structuredClone(lesson);
+ const fields={date:lesson.date,title:lesson.title,intentions:(lesson.intentions||[]).join('\n'),summary:lesson.summary,activities:(lesson.activities||[]).join('\n'),homework:lesson.homework,due:lesson.due,'additional-instructions':lesson.additionalInstructions};
+ for(const [id,value] of Object.entries(fields))$(id).value=value||'';
+ const known=[...$('topic').options].some(o=>o.value===lesson.topic);
+ $('topic').value=known?lesson.topic:'__new__';$('new-topic-wrap').hidden=known;$('new-topic').required=!known;$('new-topic').value=known?'':lesson.topic||'';
+ for(const option of $('resources').options)option.selected=(lesson.resources||[]).includes(option.value);
+ attachments.length=0;renderAttachments();invalidate();
+ $('preview').textContent='Editing '+lesson.title+'. Review the fields and select Generate lesson entry, then Publish. Existing uploaded files remain linked.';
+ $('status').textContent='Editing published lesson. Its original identifier will be preserved.';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+async function deleteManagedLesson(lesson){
+ if(!confirm('Delete “'+lesson.title+'” ('+lesson.date+') from the Class Log? Uploaded files will remain in GitHub.'))return;
+ const typed=prompt('To confirm permanent removal from the Class Log, type DELETE:');
+ if(typed!=='DELETE'){$('manage-status').textContent='Deletion cancelled.';return;}
+ $('manage-status').textContent='Checking GitHub for changes…';
+ try{
+  const current=await fetchManaged();
+  const existing=current.data.lessons.find(l=>l.id===lesson.id);
+  if(!existing)throw new Error('Lesson is no longer present. Reload the list.');
+  if(JSON.stringify(existing)!==JSON.stringify(lesson))throw new Error('This lesson has changed since you loaded the list. Reload before deleting.');
+  const next={...current.data,lessons:current.data.lessons.filter(l=>l.id!==lesson.id)};
+  // Keep all resources and uploaded files: other lessons may still use them.
+  const head=await manageApi(current.base+'/git/commits/'+current.sha);
+  const blob=await manageApi(current.base+'/git/blobs','POST',{content:jsString(next),encoding:'utf-8'});
+  const tree=await manageApi(current.base+'/git/trees','POST',{base_tree:head.tree.sha,tree:[{path:'data.js',mode:'100644',type:'blob',sha:blob.sha}]});
+  const commit=await manageApi(current.base+'/git/commits','POST',{message:'Remove physics lesson: '+lesson.date+' — '+lesson.title,tree:tree.sha,parents:[current.sha]});
+  await manageApi(current.base+current.refPath.replace('/git/ref/','/git/refs/'),'PATCH',{sha:commit.sha,force:false});
+  managedSnapshot={...current,data:next,sha:commit.sha};managedItems();
+  data.lessons=next.lessons;data.resources=next.resources;data.topics=next.topics;
+  $('manage-status').textContent='✓ Lesson deleted from the Class Log. Uploaded files were retained.';
+ }catch(e){$('manage-status').textContent='Deletion not completed: '+e.message+' Check GitHub before retrying.';}
+}
+
+
+// Standalone resource management uses the same authenticated GitHub API and non-force branch updates.
+let srEditing=null,srSnapshot=null;
+const srFields=()=>({title:$('sr-title').value.trim(),description:$('sr-description').value.trim(),topic:$('sr-topic').value.trim(),placement:$('sr-placement').value,type:$('sr-type').value});
+const srTypeChange=()=>{const file=$('sr-type').value==='File';$('sr-file-wrap').hidden=!file;$('sr-url-wrap').hidden=file;};
+$('sr-type').addEventListener('change',srTypeChange);srTypeChange();
+const srTopics=()=>{$('sr-topic-list').replaceChildren(...data.topics.map(t=>{const o=document.createElement('option');o.value=t.name;return o;}));};srTopics();
+function srClear(){srEditing=null;$('standalone-form').reset();$('sr-file').value='';srTypeChange();$('sr-save').textContent='Publish resource';$('sr-status').textContent='';}
+$('sr-clear').addEventListener('click',srClear);
+function srRender(){const host=$('sr-list');host.replaceChildren();if(!srSnapshot){host.textContent='Select “Load published resources” to begin.';return;}
+ const term=$('sr-filter').value.trim().toLowerCase();const list=srSnapshot.data.resources.filter(r=>r.standalone===true&&[r.title,r.topic,r.type,r.description].join(' ').toLowerCase().includes(term));
+ if(!list.length){host.textContent='No matching standalone resources.';return;}
+ for(const r of list){const row=document.createElement('div');row.style.cssText='border-bottom:1px solid #b8cce0;padding:12px 0;display:flex;gap:12px;align-items:center;flex-wrap:wrap';
+ const info=document.createElement('div');info.style.flex='1 1 280px';const name=document.createElement('strong');name.textContent=r.title;const detail=document.createElement('small');detail.style.display='block';detail.textContent=[r.topic,r.type,r.placement||'resources'].join(' · ');info.append(name,detail);
+ const edit=document.createElement('button');edit.type='button';edit.className='secondary';edit.textContent='Edit';edit.addEventListener('click',()=>{srEditing=structuredClone(r);$('sr-title').value=r.title||'';$('sr-description').value=r.description||'';$('sr-topic').value=r.topic||'';$('sr-placement').value=r.placement||'resources';$('sr-type').value=r.type||'Link';$('sr-url').value=/^https?:/.test(r.url||'')?r.url:'';srTypeChange();$('sr-save').textContent='Save resource changes';$('sr-status').textContent='Editing '+r.title+'. For uploaded files, leave the file picker empty to keep the existing file.';$('standalone-heading').scrollIntoView({behavior:'smooth'});});
+ const del=document.createElement('button');del.type='button';del.className='secondary';del.textContent='Delete';del.addEventListener('click',()=>srDelete(r));row.append(info,edit,del);host.append(row);
+ }
+}
+$('sr-filter').addEventListener('input',srRender);
+async function srLoad(){srSnapshot=await fetchManaged();srRender();$('sr-status').textContent=srSnapshot.data.resources.filter(r=>r.standalone===true).length+' standalone resources loaded.';}
+$('sr-load').addEventListener('click',async()=>{const btn=$('sr-load');btn.disabled=true;$('sr-status').textContent='Loading resources from GitHub…';try{await srLoad();}catch(e){$('sr-status').textContent='Could not load resources: '+e.message;}finally{btn.disabled=false;}});
+async function srCommit(transform,message,file){
+ const current=await fetchManaged();const next=transform(current.data);const head=await manageApi(current.base+'/git/commits/'+current.sha);const entries=[];
+ if(file){const bytes=new Uint8Array(await file.arrayBuffer());const blob=await manageApi(current.base+'/git/blobs','POST',{content:bytesBase64(bytes),encoding:'base64'});entries.push({path:next._uploadPath,mode:'100644',type:'blob',sha:blob.sha});delete next._uploadPath;}
+ const blob=await manageApi(current.base+'/git/blobs','POST',{content:jsString(next),encoding:'utf-8'});entries.push({path:'data.js',mode:'100644',type:'blob',sha:blob.sha});
+ const tree=await manageApi(current.base+'/git/trees','POST',{base_tree:head.tree.sha,tree:entries});const commit=await manageApi(current.base+'/git/commits','POST',{message,tree:tree.sha,parents:[current.sha]});
+ await manageApi(current.base+current.refPath.replace('/git/ref/','/git/refs/'),'PATCH',{sha:commit.sha,force:false});
+ data.resources=next.resources;data.topics=next.topics;srSnapshot={...current,data:next,sha:commit.sha};srRender();
+ $('resources').innerHTML=data.resources.map(r=>`<option value="${escape(r.id)}">${escape(r.title)}</option>`).join('');srTopics();
+ return next;
+}
+$('standalone-form').addEventListener('submit',async e=>{e.preventDefault();if(!$('standalone-form').reportValidity())return;
+ const v=srFields(),file=$('sr-file').files[0]||null,link=$('sr-url').value.trim();if(!v.title||!v.topic)return;
+ if(v.type==='File'&&!file&&!srEditing){$('sr-status').textContent='Choose a file to upload.';return;}
+ if(file&&file.size>20*1024*1024){$('sr-status').textContent='Files must be 20 MB or smaller.';return;}
+ if(v.type!=='File'){try{const u=new URL(link);if(!['https:','http:'].includes(u.protocol))throw Error();}catch{$('sr-status').textContent='Enter a complete https:// website URL.';return;}}
+ if(srEditing&&v.type==='File'&&!file&&!srEditing.url.startsWith('uploads/')){$('sr-status').textContent='Choose a file when switching this resource to an uploaded file.';return;}
+ const btn=$('sr-save');btn.disabled=true;$('sr-status').textContent='Checking latest GitHub data and preparing resource…';
+ try{const id=srEditing?srEditing.id:'standalone-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,8);const filename=file?'resource-'+id+'-'+safeName(file.name):null;const url=v.type==='File'?(filename?'uploads/'+filename:srEditing.url):link;
+ await srCommit(latest=>{const existing=latest.resources.find(r=>r.id===id);if(srEditing&&JSON.stringify(existing)!==JSON.stringify(srEditing))throw new Error('This resource has changed on GitHub. Reload before editing.');if(!srEditing&&existing)throw new Error('Resource ID already exists. Retry.');
+ const resource={...(existing||{}),id,title:v.title,description:v.description,topic:v.topic,type:v.type,url,placement:v.placement,standalone:true};return {...latest,_uploadPath:filename?'uploads/'+filename:undefined,topics:latest.topics.some(t=>t.name.toLowerCase()===v.topic.toLowerCase())?latest.topics:[...latest.topics,{name:v.topic,icon:'◉',color:'sky',description:'Resources for '+v.topic+'.',keyIdeas:[]}],resources:[...latest.resources.filter(r=>r.id!==id),resource]};},(srEditing?'Update':'Add')+' standalone physics resource: '+v.title,file);
+ srClear();$('sr-status').textContent='✓ Resource published successfully. It will appear after GitHub Pages updates. Uploaded files are kept if you later delete the listing.';
+ }catch(err){$('sr-status').textContent='Resource not confirmed published: '+err.message+' Check GitHub before retrying.';}finally{btn.disabled=false;}
+});
+async function srDelete(r){if(!confirm('Delete the resource listing “'+r.title+'”? Uploaded files will remain in GitHub.'))return;if(prompt('Type DELETE to confirm removal:')!=='DELETE')return;
+ $('sr-status').textContent='Checking GitHub before deletion…';try{await srCommit(latest=>{const existing=latest.resources.find(x=>x.id===r.id);if(JSON.stringify(existing)!==JSON.stringify(r))throw new Error('This resource changed on GitHub. Reload the list before deleting.');
+ if(latest.lessons.some(l=>(l.resources||[]).includes(r.id)))throw new Error('This resource is linked to a lesson. Remove it from that lesson first.');return {...latest,resources:latest.resources.filter(x=>x.id!==r.id)};},'Remove standalone physics resource: '+r.title,null);if(srEditing?.id===r.id)srClear();$('sr-status').textContent='✓ Resource listing removed. Uploaded file retained.';}catch(err){$('sr-status').textContent='Deletion not confirmed: '+err.message;}}
+
+$('publish').addEventListener('click',publishLesson);
+$('copy').addEventListener('click',async()=>{
+ if(!generated)return;
+ try{await navigator.clipboard.writeText(JSON.stringify(generated,null,2));$('status').textContent='Lesson entry copied.';}
+ catch(e){$('status').textContent='Copy unavailable in this browser. Use Download instead.';}
+});
+})();
+
+// Homework solutions: only publish solution bytes and URLs when the teacher explicitly releases them.
+async function solLoadLessons(){
+ const current=await fetchManaged();const select=$('sol-lesson'),chosen=select.value;
+ select.replaceChildren(new Option('Choose a lesson…',''));
+ for(const l of [...current.data.lessons].sort((a,b)=>b.date.localeCompare(a.date)))select.add(new Option(l.date+' — '+l.title+(l.homeworkSolution?.url?' ✓ released':''),l.id));
+ select.value=chosen;return current;
+}
+$('manage-load').addEventListener('click',()=>{setTimeout(()=>solLoadLessons().catch(e=>{$('sol-status').textContent=e.message}),400)});
+$('sol-lesson').addEventListener('change',async()=>{try{const snap=await solLoadLessons();const l=snap.data.lessons.find(x=>x.id===$('sol-lesson').value);$('sol-status').textContent=l?.homeworkSolution?.url?'Solutions currently released. You can replace or hide them.':'No solutions released for this lesson.';}catch(e){$('sol-status').textContent=e.message;}});
+async function solPublish(hide){
+ const id=$('sol-lesson').value,btn=$('sol-release'),status=$('sol-status');if(!id){status.textContent='Choose a lesson first.';return;}
+ const file=$('sol-file').files[0],url=$('sol-url').value.trim();let parsed;
+ if(!hide){if(!file&&!url){status.textContent='Choose a PDF or enter a solution link.';return;}if(file&&(file.type!=='application/pdf'&&!file.name.toLowerCase().endsWith('.pdf')||file.size>20*1024*1024)){status.textContent='Choose a PDF smaller than 20 MB.';return;}if(!file){try{parsed=new URL(url);if(!['http:','https:'].includes(parsed.protocol))throw Error();}catch{status.textContent='Enter a valid http(s) URL.';return;}}}
+ if(hide&&!confirm('Hide the solutions link from students? Previously published PDFs remain publicly accessible by their URL.'))return;
+ btn.disabled=true;$('sol-hide').disabled=true;status.textContent=hide?'Hiding solutions…':'Preparing solutions…';
+ try{
+  const current=await fetchManaged(),lesson=current.data.lessons.find(x=>x.id===id);if(!lesson)throw new Error('Lesson not found. Reload the list.');
+  const head=await manageApi(current.base+'/git/commits/'+current.sha);const tree=[];
+  let finalUrl=parsed?.href||url;
+  if(!hide&&file){const bytes=new Uint8Array(await file.arrayBuffer());const blob=await manageApi(current.base+'/git/blobs','POST',{content:bytesBase64(bytes),encoding:'base64'});const filename='solutions/'+slug(id)+'-'+Date.now()+'.pdf';tree.push({path:filename,mode:'100644',type:'blob',sha:blob.sha});finalUrl=filename;}
+  const next=structuredClone(current.data),target=next.lessons.find(x=>x.id===id);
+  if(hide)delete target.homeworkSolution;
+  else target.homeworkSolution={url:finalUrl,label:$('sol-label').value.trim()||'View homework solutions'};
+  const dataBlob=await manageApi(current.base+'/git/blobs','POST',{content:jsString(next),encoding:'utf-8'});tree.push({path:'data.js',mode:'100644',type:'blob',sha:dataBlob.sha});
+  const newTree=await manageApi(current.base+'/git/trees','POST',{base_tree:head.tree.sha,tree});
+  const commit=await manageApi(current.base+'/git/commits','POST',{message:(hide?'Hide':'Release')+' homework solutions: '+lesson.title,tree:newTree.sha,parents:[current.sha]});
+  await manageApi(current.base+current.refPath.replace('/git/ref/','/git/refs/'),'PATCH',{sha:commit.sha,force:false});
+  status.textContent=hide?'✓ Solutions link hidden. Previously uploaded PDFs are still public.':'✓ Solutions released to students. GitHub Pages may take a moment to update.';
+  $('sol-file').value='';$('sol-url').value='';$('gh-token').value='';
+ }catch(err){status.textContent='Update not confirmed: '+err.message+' Check GitHub before retrying.';}finally{btn.disabled=false;$('sol-hide').disabled=false;}
+}
+$('sol-release').addEventListener('click',()=>solPublish(false));
+$('sol-hide').addEventListener('click',()=>solPublish(true));
+</script></body></html>
