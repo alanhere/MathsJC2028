@@ -218,7 +218,7 @@
         if (sol) { var sl = split2(sol); s += '<a class="btn main" href="' + esc(sl.url || sol) + '" target="_blank" rel="noopener">Solutions</a>'; }
         else s += '<p class="sub">Solutions will be added soon.</p>';
       }
-      h += blk("Last night’s homework", s);
+      if (!first(it, "hidehomework")) h += blk("Last night’s homework", s);
 
       /* 3. Images from the board */
       var ph = csv(it, "photos"), bd = all(it, "board"), bh = "";
