@@ -107,6 +107,8 @@ date: 2026-10-22
 title: Factor Quadratics with a > 1
 topic: algebra factors
 summary: We continued factoring trinomials, this time with a > 1. We started simplifying algebraic fractions by utilising factorisation.
+hidehomework: yes
 homework: Complete the revision sheet provided online on Monday and in class today.
 photos: 2026-10-22-1.jpg, 2026-10-22-2.jpg, 2026-10-22-3.jpg, 2026-10-22-4.jpg
 video: Quadratic with a > 1 | https://www.youtube.com/watch?v=eB6J9k-_4Dc
+
