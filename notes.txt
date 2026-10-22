@@ -15,34 +15,15 @@
 # Use exactly the same topic name each time, or the notes will be listed under a new heading.
 # ---------------------------------------------------------------
 
-date: 2026-09-08
-title: Chapter 5: Ratio and percentages
-topic: Number
-about: Guided notes to complete in class.
-notes: chapter-5.pdf
-completed: chapter-5-completed.pdf
 
-date: 2026-09-22
-title: Chapter 6: Indices and surds
-topic: Number
-about: Laws of indices, then simplifying surds.
-notes: chapter-6.pdf
-
-date: 2026-09-29
-title: Chapter 7A: Expanding brackets
+date: 2026-10-09
+title:  Factorising
 topic: Algebra
-about: Single and double brackets.
-notes: chapter-7a.pdf
-completed: chapter-7a-completed.pdf
+about: HCF,grouping, difference of two squares and trinomials
+notes: https://drive.google.com/file/d/1eTnca0wGwF8qu3Dl6VE_fp7NEHXTD6Vl/view?usp=share_link
+completed: https://drive.google.com/file/d/1bHFhWKZG0H-AGo-1IBopoRVIVbm8BhfK/view?usp=share_link
 
-date: 2026-10-02
-title: Chapter 7B: Factorising
-topic: Algebra
-about: Common factors, then quadratics.
-notes: chapter-7b.pdf
 
-date: 2026-10-07
-title: Chapter 7C: Simultaneous equations
-topic: Algebra
-about: Elimination and substitution.
-notes: chapter-7c.pdf
+
+
+
