@@ -112,3 +112,11 @@ homework: Complete the revision sheet provided online on Monday and in class tod
 photos: 2026-10-22-1.jpg, 2026-10-22-2.jpg, 2026-10-22-3.jpg, 2026-10-22-4.jpg
 video: Quadratic with a > 1 | https://www.youtube.com/watch?v=eB6J9k-_4Dc
 
+
+date: 2026-11-02
+title: Simplify Algebraic Fractions
+topic: algebra factors
+summary: Used the 4 factorisation techniques (HCF,grouping,difference of 2 squares and trinomials) to simplify algebraic fractions.
+homework: Do the selected questions attached in the teams.
+photos: 2026-11-02-1.jpg, 2026-11-02-2.jpg
+video: Simplify Algebraic fractions | https://www.youtube.com/watch?v=RfFqb93M4U4&list=PLiUUFwHmAwskWhWfaJ9xbFa4IboZ94UeF&index=6
