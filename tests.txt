@@ -16,3 +16,10 @@ topic: Algebra
 test: Algebra 1 | https://drive.google.com/file/d/1bBBZNw-moJV6GKyL6OVfPminxtIPIQXI/view?usp=sharing
 solutions: https://drive.google.com/file/d/1SsasdhdotjtXASlmz_1HB6EVMn6Ksl-Y/view?usp=sharing
 about: Algebra 1 (equations, inequalities, word problems and long division)
+
+date: 2026-10-22
+title: Factorisation test
+topic: Algebra 
+test: Factorisation | https://drive.google.com/file/d/19a-jI_rebGCd7kBUA23qtUJQx3oATqF8/view?usp=share_link
+solutions : https://drive.google.com/file/d/1bDnFcVbjD-B7WbuoTjGh5OwJByodOakd/view?usp=share_link
+about: Highest common factor, grouping,difference of two squares and trinomials (quadratics)
