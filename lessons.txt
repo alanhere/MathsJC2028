@@ -127,3 +127,12 @@ topic: SETS
 summary: We revised set operations and Venn Diagram. We then did Venn diagram, where we had to discover what the A intersection B term was in order to solve word problems.
 homework: page 58, questions 7 and 10
 photos: 2026-11-06-1.jpg, 2026-11-06-2.jpg, 2026-11-06-3.jpg, 2026-11-06-4.jpg, 2026-11-06-5.jpg, 2026-11-06-6.jpg, 2026-11-06-7.jpg, 2026-11-06-8.jpg, 2026-11-06-9.jpg
+
+date: 2026-11-09
+title: Triple Venn Diagrams
+topic: SETS
+summary: Today we looked at triple Venn diagrams. Shading them in on the worksheet and we did a example of filling in a 3 set venn Diagram which was the example on page 61 in the book.
+homework: Page 63-65 in the book, Questions 2 3 4 and 7.
+photos: 2026-11-09-1.jpg, 2026-11-09-2.jpg, 2026-11-09-3.jpg, 2026-11-09-4.jpg, 2026-11-09-5.jpg, 2026-11-09-6.jpg, 2026-11-09-7.jpg
+hidehomework: yes
+video: https://www.loom.com/share/b9b4ec95a18246888c5813cca2dae03a?sid=67f62f15-f8c5-48fe-8693-cc774e394090
