@@ -120,3 +120,10 @@ summary: Used the 4 factorisation techniques (HCF,grouping,difference of 2 squar
 homework: Do the selected questions attached in the teams.
 photos: 2026-11-02-1.jpg, 2026-11-02-2.jpg
 video: Simplify Algebraic fractions | https://www.youtube.com/watch?v=RfFqb93M4U4&list=PLiUUFwHmAwskWhWfaJ9xbFa4IboZ94UeF&index=6
+
+date: 2026-11-06
+title: Sets 1st year Revision
+topic: SETS
+summary: We revised set operations and Venn Diagram. We then did Venn diagram, where we had to discover what the A intersection B term was in order to solve word problems.
+homework: page 58, questions 7 and 10
+photos: 2026-11-06-1.jpg, 2026-11-06-2.jpg, 2026-11-06-3.jpg, 2026-11-06-4.jpg, 2026-11-06-5.jpg, 2026-11-06-6.jpg, 2026-11-06-7.jpg, 2026-11-06-8.jpg, 2026-11-06-9.jpg
