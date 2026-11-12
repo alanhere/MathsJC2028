@@ -145,3 +145,11 @@ homework: Complete question 3 in the worksheet handed out today.
 photos: 2026-11-12-1.jpg
 hidehomework: yes
 video: https://www.youtube.com/watch?v=0tV9bcGM4hA
+
+date: 2026-11-12
+title: Word problems with 3 sets
+topic: SETS
+summary: We looked at solving word problems involving 3 sets.
+homework: From the book.Page 72 and 73. Questions 3 and 5.
+photos: 2026-11-12-2.jpg, 2026-11-12-3.jpg, 2026-11-12-4.jpg
+video: 3 set word problem | https://www.loom.com/share/8d3fa3a5712b4345a3b39ca5a21b6d63?sid=081d801d-09b7-49e9-a20e-b364cfb1a744
