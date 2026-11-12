@@ -136,3 +136,12 @@ homework: Page 63-65 in the book, Questions 2 3 4 and 7.
 photos: 2026-11-09-1.jpg, 2026-11-09-2.jpg, 2026-11-09-3.jpg, 2026-11-09-4.jpg, 2026-11-09-5.jpg, 2026-11-09-6.jpg, 2026-11-09-7.jpg
 hidehomework: yes
 video: https://www.loom.com/share/b9b4ec95a18246888c5813cca2dae03a?sid=67f62f15-f8c5-48fe-8693-cc774e394090
+
+date: 2026-11-12
+title: Distance Time Graphs
+topic: Graphs
+summary: We created distance time graphs using the motion sensor. We interpreted distance time graphs and calculated the speed at various points along the graph.
+homework: Complete question 3 in the worksheet handed out today.
+photos: 2026-11-12-1.jpg
+hidehomework: yes
+video: https://www.youtube.com/watch?v=0tV9bcGM4hA
